@@ -1,0 +1,266 @@
+@import 'tailwindcss';
+@import '../node_modules/tw-animate-css/dist/tw-animate.css';
+
+:root {
+  /* Surfaces */
+  --color-bg-primary: #eeece7;
+  --color-bg-secondary: #e2dfd8;
+  --color-bg-tertiary: #f5f3ee;
+  --color-bg-inverse: #15131b;
+  --color-bg-inverse-soft: #1c1922;
+
+  /* Text */
+  --color-text-primary: #16161d;
+  --color-text-secondary: #5e5c66;
+  --color-text-tertiary: #63616b;
+  --color-text-faint: #6b6772;
+  --color-text-inverse: #eeece7;
+  --color-text-inverse-2: #a9a4ac;
+  --color-text-inverse-3: #918b97;
+  --color-text-link: #3d344d;
+
+  /* Accent */
+  --color-accent: #7b6b95;
+  --color-accent-dark: #3d344d;
+  --color-accent-soft: #b4acbf;
+  --color-accent-soft-2: #a99db4;
+  --color-accent-on-dark: #9c8cbd;
+  --color-accent-text: #6f6089;
+
+  /* Borders */
+  --color-border: #bdb9b3;
+  --color-border-dark: #4d4754;
+  --color-border-dark-2: #34303b;
+  --color-border-soft: #cfccc5;
+
+  /* Status */
+  --color-status-live: #8da779;
+  --color-status-live-glow: #8da77922;
+
+  /* Focus */
+  --color-focus: #7b6b95;
+
+  /* Fonts (families injected by next/font on <html>) */
+  --font-display: var(--font-cormorant), Georgia, serif;
+  --font-body: var(--font-newsreader), Georgia, serif;
+  --font-mono: var(--font-space-mono), 'Courier New', monospace;
+
+  /* Shadow system — subtle depth, paper-dominant */
+  --shadow-xs: 0 1px 2px rgba(22, 22, 29, 0.04);
+  --shadow-sm:
+    0 1px 3px rgba(22, 22, 29, 0.06), 0 1px 2px rgba(22, 22, 29, 0.04);
+  --shadow-md:
+    0 4px 8px rgba(22, 22, 29, 0.06), 0 2px 4px rgba(22, 22, 29, 0.04);
+  --shadow-lg:
+    0 8px 16px rgba(22, 22, 29, 0.08), 0 4px 8px rgba(22, 22, 29, 0.04);
+  --shadow-xl:
+    0 16px 32px rgba(22, 22, 29, 0.1), 0 8px 16px rgba(22, 22, 29, 0.05);
+
+  /* Hard offset shadow — the vault card's signature "stamped" look */
+  --shadow-stamped: 12px 12px 0 var(--color-border-soft);
+  --shadow-stamped-sm: 10px 10px 0 var(--color-border-soft);
+
+  /* Inner shadow — engraved/pressed feel */
+  --shadow-inset: inset 0 1px 3px rgba(0, 0, 0, 0.15);
+  --shadow-inset-sm: inset 0 1px 1px rgba(0, 0, 0, 0.08);
+
+  /* Focus ring */
+  --shadow-focus: 0 0 0 2px var(--color-bg-primary), 0 0 0 4px var(--color-focus);
+
+  /* Glass */
+  --glass-blur: 14px;
+  --glass-bg: rgba(238, 236, 231, 0.85);
+  --glass-border: rgba(189, 185, 179, 0.5);
+
+  /* Page width cap — above ~1440px viewport everything (header, hero,
+     ticker, sections, footer) centers and freezes at one content width,
+     so every horizontal edge shares the same two gutter lines. */
+  --page-content-max: 1192px;
+
+  /* Motion */
+  --duration-fast: 150ms;
+  --duration-normal: 250ms;
+  --easing-default: cubic-bezier(0.4, 0, 0.2, 1);
+  --easing-out: cubic-bezier(0, 0, 0.2, 1);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--color-bg-primary);
+  color: var(--color-text-primary);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+.site-shell {
+  overflow: hidden;
+  position: relative;
+}
+
+.grain {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 5;
+  opacity: 0.045;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.7'/%3E%3C/svg%3E");
+}
+
+.status-dot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  background: #8da779;
+  border-radius: 50%;
+  margin-right: 6px;
+  box-shadow: 0 0 0 3px #8da77922;
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  border: 1px solid var(--color-text-primary);
+  padding: 13px 18px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 10px;
+  transition:
+    background 0.2s,
+    color 0.2s,
+    transform 0.2s;
+}
+
+.button:hover {
+  transform: translateY(-2px);
+}
+
+.button-small {
+  padding: 10px 14px;
+}
+
+.button-primary {
+  background: var(--color-text-primary);
+  color: var(--color-bg-primary);
+}
+
+.button-primary:hover {
+  background: var(--color-accent-dark);
+  border-color: var(--color-accent-dark);
+}
+
+.eyebrow,
+.section-kicker {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--color-text-tertiary);
+}
+
+.eyebrow-rule {
+  display: inline-block;
+  width: 24px;
+  height: 1px;
+  background: var(--color-accent);
+}
+
+.eyebrow.left {
+  justify-content: flex-start;
+}
+
+.hero h2 em {
+  font-style: italic;
+  color: var(--color-accent);
+}
+
+.seal {
+  color: var(--color-accent);
+  font-size: 19px;
+  line-height: 1;
+}
+
+.token-symbol {
+  color: var(--color-accent-text);
+  font-family: var(--font-mono);
+  font-size: 0.92em;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+.section-pad {
+  padding: 130px max(10vw, calc((100% - var(--page-content-max)) / 2));
+}
+
+.section-kicker {
+  margin-bottom: 62px;
+}
+
+.section-kicker.light {
+  color: var(--color-text-inverse-3);
+}
+
+.vault-metrics span,
+.vault-contract span {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--color-text-tertiary);
+  display: block;
+  margin-bottom: 7px;
+}
+
+.article-grid article:nth-child(3n + 2),
+.article-grid article:nth-child(3n + 3) {
+  border-left: 1px solid var(--color-border);
+  padding-left: 28px;
+}
+
+@media (max-width: 900px) {
+
+  .section-pad {
+    padding: 92px max(10vw, calc((100% - var(--page-content-max)) / 2));
+  }
+}
+
+@media (max-width: 640px) {
+
+  .section-pad {
+    padding: 75px max(10vw, calc((100% - var(--page-content-max)) / 2));
+  }
+  .section-kicker {
+  margin-bottom: 40px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  html {
+  scroll-behavior: auto;
+  }
+  .button {
+  transition: none;
+  }
+}
