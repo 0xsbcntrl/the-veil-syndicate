@@ -1,0 +1,149 @@
+/* Cipher rank table on the dark band — scoped.
+   Rank names in Cormorant, labels/costs in Space Mono, sub-text in
+   Newsreader. Rows get an engraved feel via --shadow-inset-sm; the
+   Sovereign row gets a refined gradient. */
+
+.darkBand {
+  background: var(--color-bg-inverse);
+  color: var(--color-text-inverse);
+}
+
+.darkHeading {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  align-items: end;
+  gap: 10vw;
+}
+
+.darkHeading h2 {
+  font-family: var(--font-display);
+  font-size: clamp(52px, 6vw, 88px);
+  font-weight: 400;
+  line-height: 0.9;
+  letter-spacing: -0.07em;
+  margin: 0;
+}
+
+.darkHeading h2 em {
+  font-style: italic;
+  color: var(--color-accent);
+}
+
+.darkHeading p {
+  color: var(--color-text-inverse-2);
+  max-width: 390px;
+  margin: 0;
+  font-family: var(--font-body);
+}
+
+.levelTable {
+  margin-top: 82px;
+  border-top: 1px solid var(--color-border-dark);
+}
+
+.headRow,
+.rankRow {
+  display: grid;
+  grid-template-columns: 2.2fr 0.8fr 1.5fr 1fr;
+  gap: 30px;
+  align-items: center;
+}
+
+.headRow {
+  padding: 15px 0;
+  color: var(--color-text-inverse-3);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.13em;
+}
+
+.rankRow {
+  border-top: 1px solid var(--color-border-dark-2);
+  padding: 19px 0;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--color-text-inverse-2);
+  box-shadow: var(--shadow-inset-sm);
+}
+
+.rankName {
+  font-family: var(--font-display);
+  font-size: 22px;
+  color: var(--color-text-inverse);
+}
+
+.rankName b {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--color-accent-on-dark);
+  margin-right: 18px;
+  vertical-align: middle;
+}
+
+.rankWeight {
+  font-size: 17px;
+  color: var(--color-text-inverse);
+}
+
+.rankTop {
+  background: linear-gradient(90deg, #29212f, transparent);
+  padding-left: 15px;
+  padding-right: 15px;
+  margin: 0 -15px;
+}
+
+.transferNote {
+  border-top: 1px solid var(--color-border-dark);
+  margin-top: 52px;
+  padding-top: 18px;
+  display: flex;
+  justify-content: space-between;
+  color: var(--color-text-inverse);
+  font-family: var(--font-display);
+  font-size: 20px;
+}
+
+.transferNote p {
+  font-family: var(--font-body);
+  color: var(--color-text-inverse-2);
+  font-size: 13px;
+  max-width: 320px;
+  margin: 0;
+}
+
+@media (max-width: 900px) {
+  .darkHeading {
+    grid-template-columns: 1fr;
+    gap: 45px;
+  }
+}
+
+@media (max-width: 640px) {
+  .darkHeading h2 {
+    font-size: 58px;
+  }
+  .headRow,
+  .rankRow {
+    grid-template-columns: 1.7fr 0.7fr 1.3fr;
+    gap: 12px;
+  }
+  .headRow span:nth-child(4),
+  .rankRow span:nth-child(4) {
+    display: none;
+  }
+  .rankName {
+    font-size: 18px;
+  }
+  .rankName b {
+    margin-right: 8px;
+  }
+  .rankRow span:nth-child(3) {
+    font-size: 10px;
+  }
+  .transferNote {
+    display: block;
+  }
+  .transferNote p {
+    margin-top: 14px;
+  }
+}

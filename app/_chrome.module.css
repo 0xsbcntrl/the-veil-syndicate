@@ -1,0 +1,159 @@
+/* Header & footer chrome — scoped.
+   Shared primitives (.button, .status-dot) stay in globals.css because
+   multiple sections across the page use them. */
+
+.siteHeader {
+  height: 82px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 max(10vw, calc((100% - var(--page-content-max)) / 2));
+  border-bottom: 1px solid var(--color-border);
+  position: relative;
+  z-index: 10;
+  background: var(--glass-bg);
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  backdrop-filter: blur(var(--glass-blur));
+  box-shadow: var(--shadow-xs);
+}
+
+.wordmark {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  font-family: var(--font-display);
+  font-size: 14px;
+  line-height: 0.9;
+  letter-spacing: -0.03em;
+}
+
+.wordmark em {
+  font-weight: 400;
+  color: var(--color-accent);
+}
+
+.wordmarkMark {
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--color-accent);
+  border-radius: 50%;
+  font-family: var(--font-display);
+  font-size: 19px;
+  color: var(--color-accent);
+}
+
+.navLinks {
+  display: flex;
+  gap: 32px;
+  margin-left: 8vw;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.13em;
+}
+
+.navLinks a {
+  transition: color var(--duration-fast) var(--easing-out);
+}
+
+.navLinks a:hover {
+  color: var(--color-accent);
+}
+
+.headerActions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.chainTag {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  color: var(--color-text-tertiary);
+  white-space: nowrap;
+}
+
+.menuButton {
+  display: none;
+  border: 0;
+  background: transparent;
+}
+
+.siteFooter {
+  padding: 35px max(10vw, calc((100% - var(--page-content-max)) / 2));
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--color-bg-inverse);
+  color: var(--color-text-inverse-2);
+  font-family: var(--font-mono);
+  font-size: 10px;
+}
+
+.siteFooter .wordmark {
+  color: var(--color-bg-primary);
+  font-family: var(--font-display);
+  font-size: 14px;
+}
+
+.siteFooter > div {
+  display: flex;
+  gap: 26px;
+}
+
+.siteFooter a:hover {
+  color: var(--color-bg-primary);
+}
+
+@media (max-width: 900px) {
+  .siteHeader {
+    padding: 0 6vw;
+  }
+  .navLinks {
+    gap: 16px;
+    margin-left: 0;
+  }
+  .chainTag {
+    display: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .siteHeader {
+    height: 70px;
+  }
+  .navLinks {
+    display: none;
+  }
+  .navLinks.navOpen {
+    display: flex;
+    position: absolute;
+    top: 70px;
+    left: 0;
+    right: 0;
+    padding: 22px 8vw;
+    background: var(--color-bg-primary);
+    border-bottom: 1px solid var(--color-border);
+    flex-direction: column;
+    z-index: 12;
+    box-shadow: var(--shadow-md);
+  }
+  .menuButton {
+    display: block;
+  }
+  .headerActions :global(.button) {
+    display: none;
+  }
+  .siteFooter {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 28px;
+  }
+  .siteFooter > div {
+    gap: 18px;
+    flex-wrap: wrap;
+  }
+}

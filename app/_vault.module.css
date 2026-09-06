@@ -1,0 +1,200 @@
+/* Vault section — scoped. The primary depth target: the card reads as a
+   sealed physical compartment via layered shadows (stamped offset over a
+   soft ambient layer) and a sealed top inner border. */
+
+.vault {
+  background: var(--color-bg-secondary);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8vw;
+  position: relative;
+}
+
+.vaultHeading {
+  padding-top: 1px;
+}
+
+.vault :global(.section-kicker) {
+  grid-column: 1 / -1;
+  margin-bottom: 0;
+}
+
+.vaultHeadingTitle {
+  font-family: var(--font-display);
+  font-size: clamp(52px, 6vw, 88px);
+  font-weight: 400;
+  line-height: 0.9;
+  letter-spacing: -0.07em;
+  margin: 55px 0 0;
+}
+
+.vaultHeadingTitle em {
+  font-style: italic;
+  color: var(--color-accent);
+}
+
+.vaultLede {
+  color: var(--color-text-secondary);
+  max-width: 380px;
+  margin-top: 35px;
+  font-family: var(--font-body);
+}
+
+.vaultCard {
+  background: var(--color-bg-primary);
+  border: 1px solid var(--color-border);
+  min-height: 400px;
+  padding: 26px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow:
+    var(--shadow-stamped),
+    var(--shadow-lg);
+}
+
+/* Sealed-compartment feel: a subtle inner edge along the top inside face */
+.vaultCard::before {
+  content: '';
+  pointer-events: none;
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 3px;
+  box-shadow: var(--shadow-inset-sm);
+}
+
+.vaultCard {
+  position: relative;
+}
+
+.vaultCardTop {
+  display: flex;
+  justify-content: space-between;
+  color: var(--color-text-tertiary);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.13em;
+}
+
+.vaultSeal {
+  width: 130px;
+  height: 130px;
+  border: 1px solid var(--color-accent);
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  color: var(--color-accent);
+  font-size: 68px;
+  margin: 30px auto 10px;
+  box-shadow: var(--shadow-xs);
+}
+
+.vaultCardCopy {
+  border-top: 1px solid var(--color-border);
+  padding-top: 17px;
+}
+
+.vaultCardCopy h3 {
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 400;
+  margin: 0 0 8px;
+}
+
+.vaultCardCopy p {
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: var(--color-text-tertiary);
+  max-width: 350px;
+  margin: 0;
+}
+
+.vaultMetrics {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-top: 1px solid var(--color-border);
+  margin-top: 26px;
+  padding-top: 16px;
+  gap: 15px;
+}
+
+.vaultMetrics span,
+.vaultContract span {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--color-text-tertiary);
+  display: block;
+  margin-bottom: 7px;
+}
+
+.vaultMetrics strong {
+  font-family: var(--font-mono);
+  font-size: 15px;
+  font-weight: 400;
+}
+
+.vaultContract {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid var(--color-border);
+  padding-top: 14px;
+  margin-top: 18px;
+  gap: 10px;
+}
+
+.vaultContract > span {
+  margin: 0;
+}
+
+.vaultContract code {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--color-text-tertiary);
+  margin-left: auto;
+}
+
+.vaultNote {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--color-text-tertiary);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  margin-top: 45px;
+}
+
+@media (max-width: 900px) {
+  .vault {
+    grid-template-columns: 1fr;
+    gap: 45px;
+  }
+  .vault :global(.section-kicker) {
+    grid-column: auto;
+  }
+  .vaultCard {
+    max-width: 580px;
+  }
+}
+
+@media (max-width: 640px) {
+  .vaultHeadingTitle {
+    font-size: 58px;
+  }
+  .vaultCard {
+    box-shadow:
+      var(--shadow-stamped-sm),
+      var(--shadow-md);
+  }
+  .vaultMetrics {
+    grid-template-columns: 1fr 1fr;
+  }
+  .vaultMetrics div:last-child {
+    grid-column: span 2;
+  }
+  .vaultContract code {
+    margin-left: 0;
+  }
+}

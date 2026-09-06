@@ -1,0 +1,110 @@
+/* Charter section — scoped.
+   Article titles in Cormorant, body in Newsreader, numerals in Space Mono.
+   Divider rules refined; grid gains a subtle lift. */
+
+.charter {
+  background: var(--color-bg-primary);
+  border-top: 1px solid var(--color-border);
+}
+
+.charterIntro {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10vw;
+  align-items: end;
+}
+
+.charterIntro h2 {
+  font-family: var(--font-display);
+  font-size: clamp(52px, 6vw, 88px);
+  font-weight: 400;
+  line-height: 0.9;
+  letter-spacing: -0.07em;
+  margin: 0;
+}
+
+.charterIntro h2 em {
+  font-style: italic;
+  color: var(--color-accent);
+}
+
+.charterIntro p {
+  color: var(--color-text-tertiary);
+  max-width: 370px;
+  margin: 0;
+  font-family: var(--font-body);
+}
+
+.articleGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-top: 1px solid var(--color-border);
+  margin-top: 80px;
+  box-shadow: var(--shadow-xs);
+}
+
+.article {
+  padding: 27px 28px 30px 0;
+  border-bottom: 1px solid var(--color-border);
+  min-height: 188px;
+}
+
+.article:nth-child(3n + 2),
+.article:nth-child(3n + 3) {
+  border-left: 1px solid var(--color-border);
+  padding-left: 28px;
+}
+
+.articleNumber {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--color-accent-text);
+}
+
+.articleTitle {
+  font-family: var(--font-display);
+  font-size: 25px;
+  font-weight: 400;
+  margin: 22px 0 10px;
+}
+
+.articleBody {
+  color: var(--color-text-tertiary);
+  font-family: var(--font-body);
+  font-size: 13px;
+  max-width: 250px;
+  margin: 0;
+}
+
+@media (max-width: 900px) {
+  .charterIntro {
+    grid-template-columns: 1fr;
+    gap: 45px;
+  }
+  .articleGrid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .article:nth-child(3n + 2),
+  .article:nth-child(3n + 3) {
+    border-left: 0;
+    padding-left: 0;
+  }
+  .article:nth-child(2n) {
+    border-left: 1px solid var(--color-border);
+    padding-left: 23px;
+  }
+}
+
+@media (max-width: 640px) {
+  .charterIntro h2 {
+    font-size: 58px;
+  }
+  .articleGrid {
+    grid-template-columns: 1fr;
+  }
+  .article,
+  .article:nth-child(2n) {
+    border-left: 0;
+    padding-left: 0;
+  }
+}
