@@ -1,123 +1,61 @@
 # The Veil Syndicate
 
-> `$VSYNC` is an access token. Users burn it to activate Ciphers and use The Window. ZEC backs each active Cipher.
+`$VSYNC` is spent to change a Cipher's state. ZEC records the value assigned to that Cipher. The Window lets an active owner take an advance from that recorded value.
 
 ## Project facts
 
 | Item | Value |
 |---|---|
-| Project | The Veil Syndicate |
 | Network | Robinhood Chain |
-| Token | `$VSYNC` |
+| Collection | 2,100 Ciphers |
+| Access token | `$VSYNC` |
 | Reserve asset | ZEC |
-| NFT supply | 2,100 Ciphers |
-| Main feature | The Window |
+| Main financial feature | The Window |
 | Team | `0xsbcntrl` |
-| Contact | X: [@0xsbcntrl](https://x.com/0xsbcntrl), Telegram: [@sbcntrl](https://t.me/sbcntrl) |
+| Contact | [@0xsbcntrl on X](https://x.com/0xsbcntrl), [@sbcntrl on Telegram](https://t.me/sbcntrl) |
 
-## Short description
+## What the protocol does
 
-The Veil Syndicate is a reserve protocol for Robinhood Chain.
+Every Cipher starts as **Veiled**. It can move between wallets, but it has no reserve weight and receives no ZEC distribution.
 
-The protocol has a fixed set of 2,100 Ciphers. Each Cipher starts in the Veiled state. The owner burns `$VSYNC` to activate the Cipher. An active Cipher has a ZEC cage and a rank weight.
+The owner burns `50,000–250,000 $VSYNC (TBD)` to activate it as rank 01, Cipher. Activation gives the Cipher a reserve weight and access to The Window. The burn does not create a staking position or a promised return.
 
-The Window lets an active owner receive an advance from the Cipher's ZEC cage. The owner burns `$VSYNC` for access. The advance does not use the market price of the Cipher or `$VSYNC`. Future eligible distributions repay the advance first.
+The Window advances part of the Cipher's own ZEC cage. It uses ZEC accounting, not the market price of the NFT or `$VSYNC`. Future eligible distributions repay the advance first. Redemption deducts any open balance before it pays the remaining ZEC.
 
-## Main terms
+## Ranks
 
-- **Cipher:** A programmable NFT with a state, rank, cage, and obligations.
-- **Veiled:** The inactive state of a Cipher.
-- **Cage:** The ZEC balance assigned to one Cipher.
-- **The Window:** An advance against part of a Cipher's cage.
-- **Rank weight:** The share used to calculate an eligible distribution.
-
-## How the protocol works
-
-### 1. Veiled state
-
-All 2,100 Ciphers start as Veiled.
-
-A Veiled Cipher:
-
-- remains part of the fixed collection;
-- has no reserve weight;
-- receives no ZEC distribution;
-- cannot open The Window;
-- can move to another wallet.
-
-Veiled is a state. It is not a rank.
-
-### 2. Activation
-
-The owner burns `50,000–250,000 $VSYNC (TBD)` to activate a Veiled Cipher as rank 01.
-
-Activation:
-
-- removes the required tokens from circulation;
-- creates no staking position;
-- creates no token emission;
-- enables reserve accounting;
-- enables access to The Window.
-
-The protocol does not use the activation burn to pay token holders.
-
-### 3. Ranks
-
-| Rank | Name | Weight | Upgrade cost | Supply limit |
-|---:|---|---:|---|---|
-| 01 | Cipher | 1x | `50,000–250,000 $VSYNC (TBD)` for activation | Open within 2,100 Ciphers |
-| 02 | Nullifier | 2x | TBD | 210 Ciphers |
-| 03 | Shadow | 3x | TBD | 105 Ciphers |
-| 04 | Syndicate | 5x | TBD | 21 Ciphers |
+| Rank | Name | Weight | Supply limit | Upgrade cost |
+|---:|---|---:|---:|---|
+| 01 | Cipher | 1x | Open within 2,100 | `50,000–250,000 $VSYNC (TBD)` for activation |
+| 02 | Nullifier | 2x | 210 | TBD |
+| 03 | Shadow | 3x | 105 | TBD |
+| 04 | Syndicate | 5x | 21 | TBD |
 | 05 | Sovereign | 10x | TBD | TBD |
 
-Weight sets the relative share of an eligible distribution. Weight is not an interest rate. Weight is not a promise of return.
+Weight controls a Cipher's share of an eligible distribution. It does not set an interest rate.
 
-The team must test all rank limits and upgrade costs before deployment.
-
-### 4. Transfer
-
-When an active Cipher moves to another wallet, it becomes Veiled.
-
-The Cipher keeps its history, cage, rank, and obligations. It stops receiving distributions until the new owner burns `$VSYNC` to reactivate it.
-
-The team must decide if an open Window can move with the Cipher. The other option is to block a transfer until the Window is closed.
-
-### 5. Redemption
-
-The owner can burn a Cipher to close the position.
-
-The contract pays the ZEC that remains in the cage after it settles all open Window obligations. Redemption is final. A burned Cipher does not return to the collection.
+The team must test the rank caps, upgrade burns, and Sovereign limit before deployment.
 
 ## The Window
 
-The Window is an advance from a Cipher's accounted ZEC cage.
+The Window gives an active owner access to part of the Cipher's recorded ZEC cage. The owner keeps the Cipher.
 
-It lets the owner access liquidity without:
+The owner sees these values before an advance:
 
-- selling the Cipher;
-- burning the Cipher;
-- using the market price of `$VSYNC`;
-- using a market price oracle;
-- facing a price-based liquidation.
+- gross cage value;
+- open Window balance;
+- net redeemable value;
+- rank limit;
+- current reserve utilization;
+- required `$VSYNC` burn.
 
-### User flow
-
-1. The owner connects an active Cipher.
-2. The protocol shows the cage, obligations, rank limit, and available Window.
-3. The owner selects an amount within the limit.
-4. The protocol shows the required `$VSYNC` burn.
-5. The owner burns `$VSYNC` and receives the approved ZEC advance.
-6. Future eligible distributions repay the Window first.
-7. After repayment, future distributions go to the owner.
-
-If the owner redeems before repayment, the contract subtracts the open advance from the cage.
+The owner then selects an amount, reviews the burn, and signs the transaction. Eligible distributions repay the Window before the owner receives a normal distribution.
 
 ### Starting limits
 
-These values are for testing. They are not final commitments.
+These limits are test values:
 
-| Rank | Maximum Window share of the cage |
+| Rank | Maximum share of the cage |
 |---|---:|
 | Cipher | 10% |
 | Nullifier | 20% |
@@ -125,36 +63,34 @@ These values are for testing. They are not final commitments.
 | Syndicate | 40% |
 | Sovereign | 50% |
 
-The protocol should also set a global utilization limit. The first target is 20% of eligible reserve liquidity.
+The first system-wide target is to keep open Windows below 20% of eligible reserve liquidity. New Windows pause when the limit is reached.
 
 ### Burn quote
 
-The required burn can use system utilization:
+The proposed quote is:
 
 ```text
 VSYNC burn quote = base burn x duration factor x utilization multiplier
 ```
 
-The burn can be lower when utilization is low. The burn can be higher when utilization is high. New Windows pause when utilization reaches the global limit.
+The quote can rise as utilization rises. The formula and its limits require simulation before launch.
 
-### Solvency rules
+### Transfer and redemption
 
-The protocol must enforce these rules:
+An active Cipher becomes Veiled when it moves to another wallet. Its history, cage, rank, and open obligations remain attached to it. The new owner must reactivate it before it can receive distributions again.
 
-1. The cage and the advance use ZEC accounting.
-2. The credit limit does not use a market price.
-3. The same ZEC is not assigned to two Ciphers.
-4. The advance stays below the rank limit.
-5. Future distributions repay the advance first.
-6. Redemption subtracts the open obligation.
+The team must choose between two transfer rules:
 
-The interface must show gross cage value, open advance, and net redeemable value as separate values.
+1. allow the open obligation to move with the Cipher;
+2. block the transfer until the Window is closed.
 
-## `$VSYNC` utility
+The owner can burn a Cipher to redeem its cage. The contract settles the open Window first. A redeemed Cipher does not return to the collection.
 
-`$VSYNC` is an access token. Holding the token alone does not create a return.
+## Token use
 
-| Action | Token action |
+`$VSYNC` is used when a holder requests a protocol action.
+
+| Action | Token use |
 |---|---|
 | Activate a Veiled Cipher | Burn |
 | Reactivate after transfer | Burn |
@@ -162,77 +98,47 @@ The interface must show gross cage value, open advance, and net redeemable value
 | Open a Window | Burn |
 | Increase or extend a Window | Burn |
 
-The protocol has no planned `$VSYNC` staking emission.
+There is no planned `$VSYNC` staking emission. Holding the token alone does not produce ZEC.
 
-## Reserve policy
+## Reserve rules
 
-The protocol keeps ZEC accounting separate from `$VSYNC` accounting.
+The protocol must keep token accounting and ZEC accounting separate.
 
-The reserve policy must follow these rules:
+It must:
 
-- Do not promise a fixed APY.
-- Do not promise a fixed distribution schedule.
-- Do not use an activation burn as reserve revenue.
-- Add only realized and verifiable ZEC to the reserve.
-- Keep reserve, treasury, and liquidity balances separate.
-- Show gross cage value, liabilities, and net value for each Cipher.
-- Pause distributions when published coverage limits are not met.
+- add only realized and verifiable ZEC to reserve records;
+- show gross cage value, liabilities, and net value for each Cipher;
+- keep reserve, treasury, and liquidity balances separate;
+- pause distributions when published coverage limits are not met;
+- avoid fixed APY and fixed distribution promises.
 
-The Window does not create yield. It gives earlier access to ZEC that belongs to a Cipher.
+The Window does not create yield. It changes when the owner can use ZEC already assigned to a Cipher.
 
 ## ZEC and Robinhood Chain
 
-Zcash supports privacy in supported shielded Zcash transactions. Robinhood Chain is a public EVM network. The protocol must not say that ZEC or a Cipher makes public EVM activity private.
+Zcash can provide privacy inside supported shielded Zcash transactions. Robinhood Chain is a public EVM network. The protocol must not say that a Cipher or a ZEC position makes public EVM activity private.
 
-Robinhood Chain gives the project an EVM market and a consumer-finance distribution thesis. The project must define the ZEC representation, bridge risk, custody model, and settlement path before launch.
+Before launch, the team must specify the ZEC instrument, custody model, bridge exposure, and redemption path.
 
-## Users
+## Who this is for
 
-The first users are:
+The first users are NFT owners who want a reserve position, Zcash users who want ZEC accounting in an EVM system, and DeFi users who want an advance without a price-based liquidation.
 
-- users who want reserve-based utility instead of token emissions;
-- NFT owners who want a reserve position;
-- Zcash users who want ZEC accounting in an EVM system;
-- DeFi users who want access without price liquidation;
-- collectors who want scarce ranks with public rules.
+## Work required before launch
 
-## Launch plan
-
-### Phase 0: Public specification
-
-- Publish the state machine, reserve policy, and risk disclosures.
-- Publish simulations for burns, rank concentration, utilization, and redemption stress.
-- Select the ZEC custody or representation model.
-- Obtain legal advice.
-
-### Phase 1: Collection and activation
-
-- Deploy the 2,100 Ciphers.
-- Deploy `$VSYNC` burn functions.
-- Enable activation in the provisional range.
-- Show activation and burn data on-chain.
-
-### Phase 2: Cage accounting
-
-- Deploy auditable ZEC accounting.
-- Show gross and net values for each Cipher.
-- Test redemption with low limits.
-- Publish coverage and liquidity data.
-
-### Phase 3: The Window
-
-- Start with low rank limits and low global utilization.
-- Allow small advances during the guarded launch.
-- Measure utilization, repayment time, and redemption behavior.
-- Increase limits only after audits and live data.
+1. Simulate rank concentration, burn demand, reserve utilization, and redemption stress.
+2. Define the Cipher state machine and Window settlement rules.
+3. Choose and document the ZEC custody or representation model.
+4. Obtain legal advice for the token, NFT, reserve, and lending features.
+5. Launch with low Window limits and publish the results.
 
 ## Metrics
 
-Report these metrics:
+The project should publish:
 
 - active Ciphers;
 - activation and reactivation rate;
-- `$VSYNC` burned by action;
+- `$VSYNC` burns by action;
 - gross and net ZEC reserve;
 - reserve coverage;
 - open Window balance;
@@ -240,63 +146,19 @@ Report these metrics:
 - average Window size and duration;
 - Window repayment rate;
 - redemption volume and fulfillment time;
-- rank and wallet concentration.
+- concentration by rank and wallet.
 
 ## Main risks
 
-### Reserve liquidity
+**Reserve liquidity.** Open advances can reduce the ZEC available for redemption. Rank caps, a global utilization limit, a liquidity buffer, and automatic pauses reduce this risk.
 
-Too much ZEC can leave the reserve while owners request redemption.
+**Contract accounting.** A settlement error can make the displayed balance wrong. The project needs small contracts, formal invariants, audits, and public monitoring.
 
-Use rank limits, a global utilization limit, a liquidity buffer, and automatic pauses.
+**ZEC integration.** Custody and bridge choices add trust assumptions. The reserve instrument and settlement path must be public.
 
-### Circular token demand
+**Concentration.** A small number of wallets can hold most rank weight or Window capacity. Supply caps and concentration reports make this visible.
 
-Demand can depend only on expected token price or distributions.
-
-Make `$VSYNC` necessary for activation, reactivation, rank access, and reserve liquidity. Do not use token emissions or fixed returns.
-
-### Contract risk
-
-An accounting or settlement error can create insolvency.
-
-Use small contracts, formal invariants, audits, guarded limits, and public monitoring.
-
-### ZEC integration
-
-Custody, bridges, and representation can add trust risk.
-
-Publish the reserve instrument and settlement path. Isolate bridge risk. Do not call a wrapped or custodial asset native shielded ZEC.
-
-### Legal risk
-
-The token, NFT, distributions, and advances can have legal requirements.
-
-Obtain advice for each launch jurisdiction. Do not use fixed-return language.
-
-### Concentration
-
-A small number of wallets can gain most rank weight or Window capacity.
-
-Use rank caps, wallet limits, and public concentration data.
-
-## The protocol does not promise
-
-- a fixed yield;
-- privacy for public EVM transactions;
-- `$VSYNC` staking emissions;
-- Window solvency based on the market price of `$VSYNC`;
-- uninterrupted redemption or Window access.
-
-## Incubator goals
-
-The project needs support for:
-
-1. Economic tests for rank caps, burns, utilization, coverage, and stress.
-2. Contract design for state, cages, Window settlement, and transfers.
-3. A credible ZEC reserve and settlement model.
-4. Legal analysis for token, NFT, reserve, and lending features.
-5. Go-to-market work that focuses on access and public accounting.
+**Legal classification.** Token burns, reserve distributions, and advances can create obligations in each launch jurisdiction. The team needs jurisdiction-specific advice before sale or launch.
 
 ## Open decisions
 
@@ -305,13 +167,14 @@ The project needs support for:
 - upgrade burns for ranks 02–05;
 - Sovereign supply limit;
 - Window duration;
-- burn quote model;
+- utilization-based burn quote;
 - transfer rules for open obligations;
-- global utilization limit;
-- ZEC custody, bridge, and redemption model;
+- ZEC custody and redemption model;
 - governance and emergency control;
 - launch jurisdiction.
 
-## Tagline
+## Application summary
 
-> `$VSYNC` is the access key. Burn it to activate a Cipher. Open The Window to reach the reserve beneath the veil.
+The Veil Syndicate is building a reserve protocol on Robinhood Chain. Its 2,100 Ciphers start inactive. A holder burns `$VSYNC` to activate a Cipher, increase its rank, or use The Window. The Window advances part of the Cipher's own ZEC cage. Future eligible distributions repay the advance first. The system uses ZEC accounting instead of a market-price liquidation model.
+
+The incubation work is specific: test the economic limits, define the contracts, choose a credible ZEC settlement path, and publish the reserve data needed for users to judge the system.
