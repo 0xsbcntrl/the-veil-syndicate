@@ -1,76 +1,68 @@
 # The Warden
 
-> The native AI agent for The Veil Syndicate ecosystem.
+> The Warden is the AI agent for The Veil Syndicate ecosystem.
 
-## Project Snapshot
+## Project facts
 
-| Field | Detail |
+| Item | Value |
 |---|---|
 | Agent | The Warden |
 | Ecosystem | The Veil Syndicate |
-| Category | AI agents, DeFi automation, reserve intelligence |
-| Intended network | Robinhood Chain |
-| Utility token | `$VSYNC` |
+| Network | Robinhood Chain |
+| Token | `$VSYNC` |
 | Reserve asset | ZEC |
-| Core primitive | The Window |
+| Main feature | The Window |
 | Team | `0xsbcntrl` |
-| Contact | X: [@0xsbcntrl](https://x.com/0xsbcntrl) · Telegram: [@sbcntrl](https://t.me/sbcntrl) |
-| Stage | Concept design |
+| Contact | X: [@0xsbcntrl](https://x.com/0xsbcntrl), Telegram: [@sbcntrl](https://t.me/sbcntrl) |
 
-## One-Sentence Pitch
+## Short description
 
-The Warden is an AI agent that monitors, simulates, explains, and manages The Window for Cipher owners under explicit, limited, and verifiable on-chain mandates.
+The Warden helps a Cipher owner read and manage a reserve position.
 
-## Executive Summary
+The owner gives the Warden a goal in plain language. The Warden converts the goal into a limited mandate. The owner signs the mandate. Smart contracts check every action.
 
-The Warden is the native AI agent for the ecosystem being built around The Veil Syndicate, `$VSYNC`, Ciphers, the ZEC reserve, and The Window.
+The Warden can monitor a Cipher, compare Window choices, prepare transactions, and execute approved actions. The Warden cannot change protocol rules or ignore a mandate.
 
-Every active Cipher represents a programmable reserve position with an individually accounted ZEC cage. The Window allows its holder to burn `$VSYNC` and access an advance against part of that cage without selling or permanently redeeming the Cipher.
+## The system
 
-The Warden adds an intelligent management layer to this system. A holder describes a financial objective in natural language, such as maintaining a minimum reserve balance, waiting for a lower `$VSYNC` burn quote, or automatically directing future distributions toward an open Window. The agent converts that objective into a restricted mandate and acts only inside limits enforced by smart contracts.
+An active Cipher has:
 
-The Warden does not determine solvency, custody unrestricted funds, change protocol rules, or create credit. Deterministic contracts remain responsible for reserve accounting, Window limits, burns, settlement, and redemption. The agent observes conditions and chooses among actions already permitted by the protocol and the owner.
+- a rank;
+- a reserve weight;
+- a ZEC cage;
+- an open Window balance, if any;
+- a history of actions and distributions.
 
-## The Role of The Warden
+The Window gives an advance from the Cipher's cage. The owner burns `$VSYNC` to use the Window. Future eligible distributions repay the Window first.
 
-The Warden is designed to serve three functions:
+## The user problem
 
-1. **Reserve intelligence:** understand the state of a Cipher, its cage, liabilities, distributions, and available Window.
-2. **Decision assistance:** simulate possible actions and explain their consequences before execution.
-3. **Constrained automation:** execute approved actions within a time-bound and value-capped mandate.
-
-The agent becomes the operating interface between the holder and the financial state of a Cipher.
-
-## The User Problem
-
-As The Veil Syndicate becomes more capable, each Cipher may contain several interacting variables:
+A Cipher can have several values and limits. The owner must track:
 
 - activation state;
-- rank and reserve weight;
-- gross ZEC cage value;
+- rank and weight;
+- gross cage value;
 - net redeemable value;
 - open Window balance;
-- protocol-wide reserve utilization;
-- dynamic `$VSYNC` burn quotes;
-- expected future distributions;
-- transfer and reactivation conditions.
+- reserve utilization;
+- `$VSYNC` burn quotes;
+- expected distributions;
+- transfer and redemption rules.
 
-These variables make the protocol more useful, but they also make each decision harder. A holder must determine when to open a Window, how much reserve to access, how long repayment may take, and whether a transfer or redemption is safe.
+The Warden gives the owner a clear explanation and a controlled action plan.
 
-The Warden turns this complexity into a conversation and a programmable policy.
+## Example mandate
 
-## Example Mandate
+The owner can say:
 
-A holder could tell The Warden:
+> Keep at least 70% of my net cage. Open a Window only when the burn is below 8,000 `$VSYNC` and global utilization is below 15%. Use future distributions to repay the Window. Do not transfer or redeem the Cipher.
 
-> Keep at least 70% of my Cipher's net cage available. Open a Window only when the required burn is below 8,000 `$VSYNC` and global reserve utilization is below 15%. Use every future distribution to close the Window. Never transfer or redeem the Cipher.
-
-The agent would translate this instruction into enforceable parameters:
+The Warden can convert this goal to:
 
 ```yaml
 minimum_net_cage: 70%
 maximum_window: 30%
-maximum_vsync_burn: 8,000
+maximum_vsync_burn: 8000
 maximum_global_utilization: 15%
 distribution_destination: window_repayment
 can_transfer: false
@@ -78,11 +70,9 @@ can_redeem: false
 mandate_expiry: 30 days
 ```
 
-The smart account validates these parameters before every action. The language model cannot override them.
+The smart account checks these values before each action. The AI model cannot change them.
 
-## Autonomy Levels
-
-Cipher owners choose how much authority to delegate.
+## Authority levels
 
 ### Observer
 
@@ -90,335 +80,293 @@ The Warden has read-only access.
 
 It can:
 
-- monitor the Cipher and reserve;
-- detect relevant changes;
-- calculate the available Window;
-- estimate repayment scenarios;
-- send alerts and periodic reports.
+- read the Cipher and reserve;
+- calculate Window capacity;
+- compare repayment cases;
+- send alerts and reports.
 
-It cannot prepare or execute transactions.
+It cannot prepare or execute a transaction.
 
 ### Copilot
 
-The Warden can prepare transactions and explain them, but the owner signs every action.
+The Warden can prepare a transaction. The owner signs every action.
 
 It can:
 
-- recommend a Window size;
-- prepare activation or repayment transactions;
-- compare current conditions with the owner's policy;
-- warn when an action could reduce reserve flexibility.
+- suggest a Window size;
+- prepare activation or repayment;
+- compare conditions with the mandate;
+- warn about reduced reserve flexibility.
 
 ### Autopilot
 
-The Warden can execute a narrow set of pre-authorized actions.
+The Warden can execute a small set of approved actions.
 
-Its mandate must define:
+Each mandate must define:
 
-- permitted contract functions;
+- allowed contract functions;
 - maximum `$VSYNC` burn per action and period;
-- maximum Window percentage;
-- minimum net cage value;
-- acceptable reserve utilization;
-- expiration time;
-- emergency revocation authority.
+- maximum Window share;
+- minimum net cage;
+- allowed reserve utilization;
+- expiry time;
+- revocation control.
 
-Transfer, permanent redemption, mandate expansion, and unrestricted token transfers should always require explicit owner approval.
+Transfer, permanent redemption, mandate expansion, and unrestricted token transfer require direct owner approval.
 
-## Core Capabilities
+## Main capabilities
 
-### Window Planner
+### Window planner
 
-The Warden evaluates the Cipher's current state and presents several scenarios:
+The Warden shows several cases:
 
-| Scenario | Example outcome |
+| Case | Result |
 |---|---|
-| Conservative | Open 10% of the cage and preserve maximum redemption flexibility |
-| Balanced | Open 20% and use all future distributions for repayment |
-| Maximum permitted | Use the full rank-specific Window limit |
-| Wait | Delay execution until the burn quote or utilization falls |
+| Conservative | Use 10% of the cage and keep more reserve available. |
+| Balanced | Use 20% and send future distributions to repayment. |
+| Maximum | Use the full rank limit. |
+| Wait | Wait for a lower burn or lower utilization. |
 
-Every scenario should show:
+Each case must show:
 
 - ZEC received;
 - `$VSYNC` burned;
-- gross and net cage after execution;
-- estimated distributions required to close the Window;
-- effect on transfer and redemption;
-- relevant protocol risks.
+- gross and net cage after the action;
+- estimated repayment time;
+- transfer and redemption effects;
+- known risks.
 
-### Window Autopilot
+### Window automation
 
-Within an approved mandate, The Warden can:
+Within a mandate, the Warden can:
 
-- wait for predefined market and reserve conditions;
+- wait for approved conditions;
 - open a Window;
-- increase an existing Window;
-- direct distributions toward repayment;
-- close a Window when sufficient ZEC becomes available;
-- suspend its own actions when protocol conditions deteriorate.
+- increase a Window;
+- send distributions to repayment;
+- close a Window when the balance allows it;
+- stop its own actions when conditions become unsafe.
 
-### Cipher Health Monitor
+### Cipher monitor
 
-The agent continuously interprets:
+The Warden reads:
 
 - reserve coverage;
 - Window utilization;
-- individual cage obligations;
+- cage obligations;
 - distribution history;
 - burn quote changes;
 - contract pause states;
-- approaching mandate expiration;
-- pending transfer or redemption consequences.
+- mandate expiry;
+- transfer and redemption effects.
 
-The interface produces plain-language explanations rather than a single opaque score.
+The interface must explain each result in plain language.
 
-### Transfer Preparation
+### Transfer report
 
-Before a Cipher moves to another wallet, The Warden can:
+Before a transfer, the Warden can:
 
-- identify outstanding Window obligations;
+- show open Window obligations;
 - calculate net reserve value;
-- explain the Veiled transition;
-- prepare repayment options;
-- generate a human-readable financial state summary for the recipient;
-- revoke its own mandate when ownership changes.
+- explain the Veiled state;
+- prepare repayment choices;
+- create a state report for the new owner;
+- revoke its mandate after ownership changes.
 
-### Reserve Reports
+### Reserve report
 
-The Warden can generate verifiable reports for a holder or the wider ecosystem:
+The Warden can create reports with:
 
-- current gross and net reserve;
-- outstanding Window exposure;
-- `$VSYNC` burns by function;
+- gross and net reserve;
+- open Window exposure;
+- `$VSYNC` burns by action;
 - repayment progress;
 - reserve utilization;
-- actions executed under each mandate;
-- deviations between forecasts and realized outcomes.
+- actions taken under each mandate;
+- forecast and result comparisons.
 
-Every report should link its conclusions to on-chain state.
+Each report must link to on-chain data.
 
-## `$VSYNC` Utility for The Warden
+## `$VSYNC` and the Warden
 
-The Warden extends `$VSYNC` from protocol access into agent access.
+The Warden can add token utility through controlled access.
 
-Potential token functions include:
-
-| Agent action | `$VSYNC` function |
+| Agent action | Token action |
 |---|---|
-| Activate a Warden mandate | Burn |
-| Renew an expiring mandate | Burn |
+| Activate a mandate | Burn |
+| Renew a mandate | Burn |
 | Increase execution capacity | Burn |
-| Open or increase The Window | Burn through the existing Window mechanism |
-| Request an advanced simulation | Small burn or protocol-defined access credit |
-| Register a verified automation policy | Burn |
+| Open or increase The Window | Burn through the Window function |
+| Request an advanced simulation | Small burn or protocol credit |
+| Register an automation policy | Burn |
 
-The token should not reward the agent through inflationary emissions. `$VSYNC` is consumed when the user requests valuable access, execution, or automation.
+The agent must not pay rewards through token emissions. Monitoring should remain accessible. Actions with financial effect can require a stronger burn.
 
-The final burn schedule remains `TBD` and must be designed so that ordinary monitoring remains accessible while financially meaningful actions create stronger token demand.
-
-## System Architecture
+## System architecture
 
 ```mermaid
 flowchart TD
-    A[Cipher Owner] -->|Natural-language objective| B[The Warden]
-    B --> C[Policy Compiler]
-    C --> D[On-chain Mandate]
-    B --> E[Simulation Engine]
-    E --> F[Proposed Action]
-    D --> G[Restricted Executor]
+    A[Cipher owner] -->|Goal| B[The Warden]
+    B --> C[Policy compiler]
+    C --> D[On-chain mandate]
+    B --> E[Simulation engine]
+    E --> F[Action proposal]
+    D --> G[Restricted executor]
     F --> G
-    G --> H{Contract Validation}
-    H -->|Allowed| I[Cipher / The Window]
+    G --> H{Contract check}
+    H -->|Allowed| I[Cipher or The Window]
     H -->|Rejected| J[No execution]
-    I --> K[On-chain Result]
+    I --> K[On-chain result]
     K --> B
-    B -->|Explanation and report| A
+    B -->|Report| A
 ```
 
-The architecture separates intelligence from authority:
+The system separates reasoning from authority:
 
-- the model interprets intent and evaluates scenarios;
-- the policy compiler converts intent into structured limits;
-- the owner reviews and signs the mandate;
-- the executor exposes only approved contract actions;
-- protocol contracts independently validate every transaction;
-- all results remain auditable on-chain.
+- the model reads intent and compares cases;
+- the policy compiler creates limits;
+- the owner signs the mandate;
+- the executor exposes only approved functions;
+- contracts validate each transaction;
+- results remain on-chain and auditable.
 
-## Agent-Owned Ciphers
+## Agent-owned Ciphers
 
-The longer-term vision allows an autonomous agent to operate its own Cipher under a human- or organization-defined constitution.
+In a later phase, an agent can operate its own Cipher under a human or organization constitution.
 
-An agent-owned Cipher could contain:
+The Cipher can hold:
 
 - a ZEC cage;
-- `$VSYNC` allocated as an operating budget;
-- an active or Veiled state;
-- rank and reserve weight;
+- a `$VSYNC` operating budget;
+- a state and rank;
 - an open Window balance;
 - a signed mandate;
-- an on-chain action history;
-- a portable reputation record.
+- an action history;
+- a reputation record.
 
-The agent could use The Window to access working liquidity, pay for permitted on-chain actions, and close the advance through future distributions. The Cipher would act as the agent's reserve-backed financial identity.
+The agent can use the Window for approved work. Future distributions can repay the Window. The Cipher becomes a bounded reserve-backed identity for an autonomous economic actor.
 
-This creates a new participant inside The Veil Syndicate: an autonomous economic actor whose authority, assets, obligations, and reputation are visible and bounded.
+## Identity and reputation
 
-## Agent Identity and Reputation
+The Warden can use an agent identity standard such as [ERC-8004](https://eips.ethereum.org/EIPS/eip-8004).
 
-The Warden can be designed for compatibility with emerging agent standards.
+Reputation can use measurable results:
 
-[ERC-8004](https://eips.ethereum.org/EIPS/eip-8004) proposes on-chain registries for agent identity, reputation, and validation. A Warden instance could have a registered identity connected to its service endpoints and agent wallet.
-
-Its reputation should be based on measurable outcomes, including:
-
-- adherence to user mandates;
-- percentage of successful executions;
+- mandate compliance;
+- successful execution rate;
 - avoided policy violations;
 - forecast accuracy;
 - Window repayment performance;
 - response to emergency pauses;
 - independent validation results.
 
-Reputation must never expand the agent's authority automatically. A highly rated agent remains constrained by the mandate signed by each Cipher owner.
+Reputation must not increase authority. A trusted agent still follows each signed mandate.
 
-## Security Model
+## Security rules
 
-The Warden follows the principle that the AI may choose an action, but only contracts determine whether the action is valid.
+The AI can select an action. Contracts decide if the action is valid.
 
-### Hard Restrictions
+The Warden must not:
 
-The agent must not be able to:
-
-- change protocol-level Window limits;
-- alter reserve accounting;
-- transfer or permanently redeem a Cipher without explicit approval;
-- send funds to arbitrary addresses;
-- spend more `$VSYNC` than its mandate permits;
+- change Window limits;
+- change reserve accounting;
+- transfer or redeem a Cipher without approval;
+- send funds to an arbitrary address;
+- exceed a burn or value cap;
 - extend its own mandate;
-- change the owner-defined risk policy;
+- change the owner's risk policy;
 - bypass a protocol pause;
-- conceal executed actions.
+- hide an action.
 
-### Required Controls
+The system must use:
 
-- allowlisted contract addresses and functions;
-- value caps per action and per period;
-- mandate expiration;
-- owner revocation at any time;
+- allowlisted contracts and functions;
+- value caps per action and period;
+- mandate expiry;
+- owner revocation;
 - simulation before execution;
 - transaction receipts and explanations;
-- independent smart-contract validation;
-- emergency pause controlled outside the model;
+- contract validation outside the AI model;
+- an emergency pause outside the model;
 - separate storage for prompts, policies, and signing authority;
-- no private key exposure to the language model.
+- no private key access for the language model.
 
-## What The Warden Is Not
+## The Warden is not
 
-- It is not a generic crypto chatbot.
-- It is not an autonomous trading bot.
-- It does not predict or guarantee the price of `$VSYNC` or ZEC.
-- It does not create yield.
-- It does not decide who deserves credit.
-- It does not replace the solvency rules of The Window.
-- It does not make public EVM transactions private.
-- It does not receive unlimited custody over a user's wallet.
+- a generic crypto chatbot;
+- an unrestricted trading bot;
+- a price prediction service;
+- a yield creator;
+- a credit decision maker;
+- a replacement for Window solvency rules;
+- a privacy layer for public EVM activity;
+- an unrestricted wallet custodian.
 
-## Differentiation
+## Roadmap
 
-The Warden combines:
+### Phase 1: Observer
 
-- a native AI agent tied to a reserve protocol;
-- natural-language financial mandates;
-- deterministic on-chain enforcement;
-- a programmable NFT with its own reserve state;
-- a ZEC-denominated Window without price-based liquidation;
-- automatic repayment from future distributions;
-- consumable `$VSYNC` utility;
-- support for human-owned and agent-operated Ciphers;
-- performance history that can become portable agent reputation.
+- Read Cipher and reserve state.
+- Answer questions about The Window.
+- Compare Window cases.
+- Send alerts.
+- Execute no transactions.
 
-The AI is useful because it manages changing conditions over time. The contracts remain simple enough to verify because they enforce limits rather than attempting to reproduce the agent's reasoning on-chain.
+### Phase 2: Copilot
 
-## Development Roadmap
+- Prepare transactions.
+- Convert plain-language goals to policies.
+- Require owner approval for every action.
+- Explain each transaction before and after execution.
 
-### Phase 1 — Warden Observer
+### Phase 3: Limited Autopilot
 
-- read Cipher and reserve state;
-- answer questions about The Window;
-- produce scenario comparisons;
-- notify users of important changes;
-- provide no transaction execution.
+- Use expiring mandates.
+- Allow only approved functions.
+- Apply burn and value caps.
+- Automate Window actions.
+- Add immediate revocation.
+- Start with low execution limits.
 
-### Phase 2 — Warden Copilot
+### Phase 4: Autonomous Ciphers
 
-- prepare transactions;
-- translate natural-language objectives into structured policies;
-- require owner approval for every action;
-- generate pre- and post-transaction explanations.
+- Add agent identity and reputation.
+- Support organization-owned agents.
+- Give Ciphers bounded operating budgets.
+- Test agent-to-agent actions.
+- Add independent action validation.
 
-### Phase 3 — Limited Autopilot
+## Success metrics
 
-- deploy expiring mandates;
-- introduce allowlisted actions and spending caps;
-- automate Window opening and repayment;
-- add immediate mandate revocation;
-- launch with conservative execution limits.
-
-### Phase 4 — Autonomous Ciphers
-
-- connect agent identity and reputation;
-- support organization-owned agents;
-- allow Ciphers to hold bounded agent operating budgets;
-- test agent-to-agent interactions inside the ecosystem;
-- introduce independent action validation.
-
-## Success Metrics
-
-The project should measure useful agent behavior rather than conversation volume:
+Measure:
 
 - active Warden mandates;
-- percentage of users choosing Observer, Copilot, and Autopilot;
-- `$VSYNC` burned through agent-initiated actions;
-- Window actions completed within mandate limits;
-- prevented policy violations;
-- average Window repayment time;
-- forecast error versus realized distributions;
+- Observer, Copilot, and Autopilot use;
+- `$VSYNC` burned by agent actions;
+- actions within mandate limits;
+- blocked policy violations;
+- Window repayment time;
+- forecast error;
 - mandate revocation rate;
-- value managed under restricted mandates;
-- user retention after closing a Window;
-- number of agent-operated Ciphers.
+- value under restricted mandates;
+- agent-operated Ciphers.
 
-## Open Decisions
+## Open decisions
 
-- whether one Warden serves all Ciphers or each Cipher receives a distinct agent identity;
-- burn requirements for mandate activation and renewal;
-- which actions are available in the first Autopilot release;
+- one Warden for all Ciphers or one identity per Cipher;
+- burn for mandate activation and renewal;
+- first Autopilot actions;
 - maximum mandate duration;
-- whether advanced simulations require `$VSYNC` consumption;
-- agent wallet and smart-account architecture;
-- identity and reputation standard integration;
-- data sources permitted for forecasts;
-- privacy model for user instructions and portfolio data;
-- liability and regulatory treatment of automated financial actions;
-- conditions required before agent-owned Ciphers are enabled.
-
-## Short Application Description
-
-The Warden is the AI agent for The Veil Syndicate ecosystem. It helps Cipher owners understand and manage individually accounted ZEC reserve positions and The Window, a protocol primitive that provides liquidity against a Cipher's own cage without market-price liquidations.
-
-Owners define objectives in natural language and authorize the agent through limited, expiring, and value-capped on-chain mandates. The Warden monitors reserve conditions, simulates Window scenarios, prepares transactions, and can execute approved actions through a restricted smart-account interface. Deterministic contracts remain responsible for solvency, reserve accounting, burns, settlement, and redemption.
-
-The Warden adds recurring utility to `$VSYNC`: holders burn the token to activate or renew agent mandates, access controlled automation, and execute Window operations. In its longer-term form, an autonomous agent can operate a Cipher as its own reserve-backed financial identity, with a ZEC cage, `$VSYNC` operating budget, explicit constitution, and verifiable reputation.
+- burn for advanced simulations;
+- smart-account design;
+- identity and reputation standard;
+- forecast data sources;
+- privacy for user instructions;
+- legal treatment of automated actions;
+- requirements for agent-owned Ciphers.
 
 ## Positioning
 
-> **Every Cipher can appoint a Warden.**
+> Every Cipher can appoint a Warden.
 
-> **The Cipher holds the cage. The Warden watches the Window.**
-
-## Final Thesis
-
-The Veil Syndicate gives every Cipher a reserve, a rank, and a Window. The Warden gives it intelligence.
-
-Together, they create an ecosystem where human and autonomous holders can manage reserve-backed financial positions through transparent contracts, consumable token utility, and explicitly bounded AI authority.
+> The Cipher holds the cage. The Warden watches The Window.
